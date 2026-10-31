@@ -6,10 +6,18 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   unit-tests-and-build:
     name: Typecheck, Unit Tests & Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,8 +27,12 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@ujjwal-s-s'
 
       - name: Install dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm install
 
       - name: Run TypeScript typecheck
@@ -39,6 +51,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      packages: read
 
     steps:
       - name: Checkout code (full depth for git diff)
@@ -51,25 +64,26 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@ujjwal-s-s'
 
       - name: Install dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm install
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
-
-      - name: Install Smart Regression Agent CLI
-        run: npm install -g https://github.com/Ujjwal-S-S/smart-regression-agent.git
 
       - name: Run AI Smart Regression Analysis & PR Comment
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          smart-test comment --base "origin/${{ github.base_ref || 'main' }}" || smart-test analyze --base "origin/${{ github.base_ref || 'main' }}"
+          npx smart-test comment --base "origin/${{ github.base_ref || 'main' }}" || npx smart-test analyze --base "origin/${{ github.base_ref || 'main' }}"
 
       - name: Execute Targeted Playwright Tests
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          smart-test run --base "origin/${{ github.base_ref || 'main' }}"
+          npx smart-test run --base "origin/${{ github.base_ref || 'main' }}"
