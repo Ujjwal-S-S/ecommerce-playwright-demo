@@ -80,10 +80,10 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npx smart-test comment --base "origin/${{ github.base_ref || 'main' }}" || npx smart-test analyze --base "origin/${{ github.base_ref || 'main' }}"
+          npm exec smart-test comment --base "origin/${{ github.base_ref || 'main' }}" || npm exec smart-test analyze --base "origin/${{ github.base_ref || 'main' }}"
 
       - name: Execute Targeted Playwright Tests
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          npx smart-test run --base "origin/${{ github.base_ref || 'main' }}"
+          npm exec smart-test run --base "origin/${{ github.base_ref || 'main' }}"
