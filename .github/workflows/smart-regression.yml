@@ -26,7 +26,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@ujjwal-s-s'
 
@@ -63,14 +62,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@ujjwal-s-s'
 
-      - name: Install dependencies
+      - name: Install dependencies & agent package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm install
+        run: |
+          npm install
+          npm install @ujjwal-s-s/smart-regression-agent
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
@@ -80,10 +80,10 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npm exec smart-test comment --base "origin/${{ github.base_ref || 'main' }}" || npm exec smart-test analyze --base "origin/${{ github.base_ref || 'main' }}"
+          npx smart-test comment --base "origin/${{ github.base_ref || 'main' }}" || npx smart-test analyze --base "origin/${{ github.base_ref || 'main' }}"
 
       - name: Execute Targeted Playwright Tests
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          npm exec smart-test run --base "origin/${{ github.base_ref || 'main' }}"
+          npx smart-test run --base "origin/${{ github.base_ref || 'main' }}"
