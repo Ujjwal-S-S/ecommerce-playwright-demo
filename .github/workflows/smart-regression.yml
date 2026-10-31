@@ -1,0 +1,49 @@
+name: Smart Regression E2E Suite
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main]
+
+jobs:
+  smart-regression:
+    name: AI Test Impact & Smart Run
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Smart Regression Agent CLI
+        run: npm install -g https://github.com/Ujjwal-S-S/smart-regression-agent.git
+
+      - name: Run AI Smart Regression Analysis & Comment
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          smart-test comment --base "origin/${{ github.base_ref || 'main' }}" || smart-test analyze --base "origin/${{ github.base_ref || 'main' }}"
+
+      - name: Execute Selected Tests
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          smart-test run --base "origin/${{ github.base_ref || 'main' }}"

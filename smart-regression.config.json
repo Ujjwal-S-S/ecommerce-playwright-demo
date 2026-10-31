@@ -1,0 +1,35 @@
+{
+  "testDir": "playwright/e2e/tests",
+  "testMatch": ["**/*.spec.ts"],
+  "pageObjectsDir": "playwright/e2e/pages",
+  "components": [
+    {
+      "name": "checkout",
+      "patterns": ["app/src/**/checkout*", "playwright/e2e/**/checkout*"]
+    },
+    {
+      "name": "payment",
+      "patterns": ["app/src/**/payment*", "playwright/e2e/**/payment*"]
+    },
+    {
+      "name": "basket",
+      "patterns": ["app/src/**/cart*", "playwright/e2e/**/cart*", "app/src/**/basket*"]
+    },
+    {
+      "name": "profile",
+      "patterns": ["app/src/**/profile*", "playwright/e2e/**/profile*"]
+    }
+  ],
+  "safetyRules": {
+    "fullRunPatterns": [
+      "playwright.config.*",
+      "package.json"
+    ],
+    "maxImpactRatioForFullRun": 0.8
+  },
+  "ai": {
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0.2
+  }
+}

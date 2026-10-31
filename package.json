@@ -1,0 +1,31 @@
+{
+  "name": "ecommerce-playwright-demo",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Modern E-Commerce Web Application & Playwright Regression Test Suite",
+  "scripts": {
+    "start": "tsx app/src/server.ts",
+    "dev": "tsx watch app/src/server.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:smart": "smart-test analyze",
+    "test:smart:run": "smart-test run",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "ecommerce",
+    "playwright",
+    "e2e-testing",
+    "regression-testing"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.2",
+    "smart-regression-agent": "file:../smart-regression-agent",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
