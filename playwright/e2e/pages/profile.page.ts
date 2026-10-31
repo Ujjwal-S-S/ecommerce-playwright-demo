@@ -1,19 +1,22 @@
 import { type Page, type Locator } from '@playwright/test';
 import { BasePage } from './base.page.js';
-import { ProfileComponent } from '../../../app/src/components/profile.component.js';
 
 export class ProfilePage extends BasePage {
-  readonly profileComponent: ProfileComponent;
   readonly nameInput: Locator;
   readonly emailInput: Locator;
+  readonly themeSelect: Locator;
   readonly saveButton: Locator;
+  readonly statusMessage: Locator;
+  readonly themeBadge: Locator;
 
   constructor(page: Page) {
     super(page);
-    this.profileComponent = new ProfileComponent();
-    this.nameInput = page.locator('#profile-name');
-    this.emailInput = page.locator('#profile-email');
-    this.saveButton = page.locator('button#save-profile');
+    this.nameInput = page.getByTestId('profile-name');
+    this.emailInput = page.getByTestId('profile-email');
+    this.themeSelect = page.getByTestId('theme-select');
+    this.saveButton = page.getByTestId('save-profile-btn');
+    this.statusMessage = page.getByTestId('profile-status');
+    this.themeBadge = page.getByTestId('theme-badge');
   }
 
   public async goto(): Promise<void> {
@@ -24,10 +27,18 @@ export class ProfilePage extends BasePage {
     await this.nameInput.fill(name);
     await this.emailInput.fill(email);
     await this.saveButton.click();
-    this.profileComponent.updateProfile({ name, email });
+    await this.statusMessage.waitFor({ state: 'visible' });
+  }
+
+  public async selectTheme(theme: 'light' | 'dark'): Promise<void> {
+    await this.themeSelect.selectOption(theme);
+    await this.saveButton.click();
+    await this.statusMessage.waitFor({ state: 'visible' });
   }
 
   public async getPreferences(): Promise<Record<string, string>> {
-    return { theme: 'dark' };
+    const themeText = await this.themeBadge.innerText();
+    const theme = themeText.toLowerCase().includes('dark') ? 'dark' : 'light';
+    return { theme };
   }
 }

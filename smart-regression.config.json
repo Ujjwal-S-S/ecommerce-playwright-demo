@@ -5,25 +5,26 @@
   "components": [
     {
       "name": "checkout",
-      "patterns": ["app/src/**/checkout*", "playwright/e2e/**/checkout*"]
+      "patterns": ["src/**/Checkout*", "playwright/e2e/**/checkout*"]
     },
     {
       "name": "payment",
-      "patterns": ["app/src/**/payment*", "playwright/e2e/**/payment*"]
+      "patterns": ["src/**/Payment*", "playwright/e2e/**/payment*"]
     },
     {
       "name": "basket",
-      "patterns": ["app/src/**/cart*", "playwright/e2e/**/cart*", "app/src/**/basket*"]
+      "patterns": ["src/**/Cart*", "playwright/e2e/**/cart*", "src/**/basket*"]
     },
     {
       "name": "profile",
-      "patterns": ["app/src/**/profile*", "playwright/e2e/**/profile*"]
+      "patterns": ["src/**/Profile*", "playwright/e2e/**/profile*"]
     }
   ],
   "safetyRules": {
     "fullRunPatterns": [
       "playwright.config.*",
-      "package.json"
+      "package.json",
+      "vite.config.*"
     ],
     "maxImpactRatioForFullRun": 0.8
   },

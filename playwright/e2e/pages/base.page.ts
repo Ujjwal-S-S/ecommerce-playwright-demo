@@ -5,6 +5,6 @@ export abstract class BasePage {
 
   public async navigateToTab(tabId: 'cart' | 'checkout' | 'payment' | 'profile'): Promise<void> {
     await this.page.goto('/');
-    await this.page.locator(`#nav-${tabId}`).click();
+    await this.page.getByTestId(`nav-${tabId}`).click();
   }
 }

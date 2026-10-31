@@ -2,10 +2,13 @@
   "name": "ecommerce-playwright-demo",
   "version": "1.0.0",
   "type": "module",
-  "description": "Modern E-Commerce Web Application & Playwright Regression Test Suite",
+  "description": "Production-grade React + TypeScript E-Commerce Application with Vitest Unit Tests & AI-selected Playwright E2E Regression Suite",
   "scripts": {
-    "start": "tsx app/src/server.ts",
-    "dev": "tsx watch app/src/server.ts",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview --port 3000",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
@@ -13,19 +16,26 @@
     "test:smart:run": "smart-test run",
     "typecheck": "tsc --noEmit"
   },
-  "keywords": [
-    "ecommerce",
-    "playwright",
-    "e2e-testing",
-    "regression-testing"
-  ],
-  "author": "",
-  "license": "MIT",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.2",
     "@types/node": "^22.10.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
     "smart-regression-agent": "file:../smart-regression-agent",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7",
+    "vitest": "^5.0.5"
+  },
+  "overrides": {
+    "rollup": "4.67.2"
   }
 }
