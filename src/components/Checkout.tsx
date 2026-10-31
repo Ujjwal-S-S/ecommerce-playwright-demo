@@ -22,6 +22,8 @@ export const Checkout: React.FC<CheckoutProps> = ({ subtotal, onOrderCreated }) 
     const code = promoCode.trim().toUpperCase();
     if (code === 'VIP25') {
       setDiscountPercent(0.25);
+    } else if (code === 'SAVE20') {
+      setDiscountPercent(0.20);
     } else if (code === 'SAVE10') {
       setDiscountPercent(0.10);
     } else {
