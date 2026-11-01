@@ -36,21 +36,30 @@ This project implements a balanced testing architecture:
 ```mermaid
 flowchart TD
     PR["Pull Request / Git Push"] --> CI["GitHub Actions Pipeline"]
-    
-    subgraph Stage1 ["Stage 1: Fast Verification"]
-        CI --> TC["TypeScript Typecheck (tsc)"]
-        CI --> UT["Vitest Unit Tests (jsdom)"]
-        CI --> Build["Vite App Build"]
+
+    subgraph Stage1 ["Stage 1: Fast Quality Gate"]
+        TC["TypeScript (tsc --noEmit)"] --> UT["Vitest Unit Tests"]
+        UT --> Build["Vite App Build"]
     end
-    
-    subgraph Stage2 ["Stage 2: AI Impact Selection & E2E"]
-        Stage1 --> Diff["Git Diff Analyzer (base branch comparison)"]
-        Diff --> SmartTest["playwright-smart-test v1.0.7"]
-        SmartTest --> Gemini["Gemini LLM Risk & Impact Reasoning"]
-        SmartTest --> Safety["Safety Rules & Guardrail Checks"]
-        Safety --> PRComment["Post PR Impact Summary Comment"]
-        Safety --> PWRun["Execute Targeted Playwright Specs"]
+
+    CI --> Stage1
+
+    subgraph Stage2 ["Stage 2: AI Regression Selection & E2E"]
+        Diff["Git Diff & AST Analyzer"] --> Agent["playwright-smart-test v1.0.7"]
+        Catalog["Playwright Spec Catalog"] --> Agent
+        Agent --> Gemini["Gemini AI Impact & Risk Analysis"]
+        Gemini --> Guardrails{"Safety Guardrails Check"}
+
+        Guardrails -->|"0 Impacted Tests"| Skip["Skip E2E Run (0s Runtime)"]
+        Guardrails -->|"Targeted Changes"| Targeted["Execute Selected Specs Only"]
+        Guardrails -->|"Threshold Exceeded (>70%)"| Full["Fallback: Full Playwright Suite"]
+
+        Targeted --> Report["Auto-Post PR Comment & Step Summary"]
+        Full --> Report
+        Skip --> Report
     end
+
+    Stage1 --> Stage2
 ```
 
 ---
