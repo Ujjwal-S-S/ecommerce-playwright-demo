@@ -1,6 +1,6 @@
 # 🛒 E-Commerce Playwright Demo
 
-[![CI & Smart Regression Suite](https://github.com/Ujjwal-S-S/ecommerce-playwright-demo/actions/workflows/smart-regression.yml/badge.svg)](https://github.com/Ujjwal-S-S/ecommerce-playwright-demo/actions/workflows/smart-regression.yml)
+[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI-2088FF?logo=githubactions&logoColor=white)](https://github.com/Ujjwal-S-S/ecommerce-playwright-demo/actions)
 [![playwright-smart-test](https://img.shields.io/badge/playwright--smart--test-v1.0.5-blue.svg)](https://www.npmjs.com/package/playwright-smart-test)
 [![Playwright](https://img.shields.io/badge/tested%20with-Playwright-45ba4b.svg)](https://playwright.dev/)
 [![React](https://img.shields.io/badge/React-18-61dafb.svg)](https://react.dev/)
@@ -229,13 +229,6 @@ npm run test:smart:comment
   }
 }
 ```
-
----
-
-## 🤝 Author & Acknowledgments
-
-- **Author**: Ujjwal S S ([GitHub](https://github.com/Ujjwal-S-S) • [LinkedIn](https://www.linkedin.com/in/ujwal-s-s/))
-- **Smart Test Tool**: [`playwright-smart-test`](https://github.com/Ujjwal-S-S/playwright-smart-test) on npm
 
 ---
 
