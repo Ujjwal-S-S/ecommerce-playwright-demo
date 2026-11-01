@@ -61,6 +61,19 @@ export const Profile: React.FC<ProfileProps> = ({
         </div>
 
         <div className="form-group">
+          <label htmlFor="profile-phone">Phone Number</label>
+          <input
+            id="profile-phone"
+            type="tel"
+            className="input-field"
+            placeholder="+1 (555) 000-0000"
+            value={profile.phone || ''}
+            onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
+            data-testid="profile-phone"
+          />
+        </div>
+
+        <div className="form-group">
           <label htmlFor="theme-select">Theme Preference</label>
           <select
             id="theme-select"
