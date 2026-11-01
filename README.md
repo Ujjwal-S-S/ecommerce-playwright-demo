@@ -1,7 +1,7 @@
 # 🛒 E-Commerce Playwright Demo
 
 [![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI-2088FF?logo=githubactions&logoColor=white)](https://github.com/Ujjwal-S-S/ecommerce-playwright-demo/actions)
-[![playwright-smart-test](https://img.shields.io/badge/playwright--smart--test-v1.0.5-blue.svg)](https://www.npmjs.com/package/playwright-smart-test)
+[![playwright-smart-test](https://img.shields.io/badge/playwright--smart--test-v1.0.7-blue.svg)](https://www.npmjs.com/package/playwright-smart-test)
 [![Playwright](https://img.shields.io/badge/tested%20with-Playwright-45ba4b.svg)](https://playwright.dev/)
 [![React](https://img.shields.io/badge/React-18-61dafb.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178c6.svg)](https://www.typescriptlang.org/)
@@ -22,7 +22,7 @@ In modern web development, end-to-end (E2E) suites grow rapidly. Running the ful
 This project implements a balanced testing architecture:
 1. **Unit & Component Tests (Vitest)**: Instant feedback (<1s) for business logic, discounts, tax calculations, and component rendering.
 2. **End-to-End Tests (Playwright + POM)**: Clean, resilient browser tests structured with the Page Object Model pattern.
-3. **Smart Regression Selection (`playwright-smart-test` v1.0.5)**:
+3. **Smart Regression Selection (`playwright-smart-test` v1.0.7)**:
    - Analyzes git diffs against the target branch (`main`).
    - Maps modified source code to affected test files and component domains using AST patterns.
    - Evaluates risk using Google Gemini to execute **only impacted tests**.
@@ -45,7 +45,7 @@ flowchart TD
     
     subgraph Stage2 ["Stage 2: AI Impact Selection & E2E"]
         Stage1 --> Diff["Git Diff Analyzer (base branch comparison)"]
-        Diff --> SmartTest["playwright-smart-test v1.0.5"]
+        Diff --> SmartTest["playwright-smart-test v1.0.7"]
         SmartTest --> Gemini["Gemini LLM Risk & Impact Reasoning"]
         SmartTest --> Safety["Safety Rules & Guardrail Checks"]
         Safety --> PRComment["Post PR Impact Summary Comment"]
