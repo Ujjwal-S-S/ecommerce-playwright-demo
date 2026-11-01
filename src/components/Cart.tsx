@@ -56,6 +56,11 @@ export const Cart: React.FC<CartProps> = ({
       </div>
 
       <div className="cart-summary">
+        {subtotal >= 100 && (
+          <div className="alert-success" data-testid="free-shipping-banner" style={{ padding: '8px', marginBottom: '12px', borderRadius: '4px', background: '#e6fffa', color: '#006644', fontSize: '13px', textAlign: 'center' }}>
+            🎉 You unlocked Free Standard Shipping!
+          </div>
+        )}
         <div className="summary-row">
           <span>Subtotal:</span>
           <strong data-testid="cart-subtotal">${subtotal.toFixed(2)}</strong>
