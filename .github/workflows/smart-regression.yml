@@ -16,23 +16,19 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: read
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20.x
+      - name: Setup Node.js 22.x
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@ujjwal-s-s'
+          cache: 'npm'
 
       - name: Install dependencies
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm install
+        run: npm ci
 
       - name: Run TypeScript typecheck
         run: npm run typecheck
@@ -50,7 +46,6 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-      packages: read
 
     steps:
       - name: Checkout code (full depth for git diff)
@@ -58,17 +53,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js 20.x
+      - name: Setup Node.js 22.x
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@ujjwal-s-s'
+          cache: 'npm'
 
       - name: Install dependencies
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm install
+        run: npm ci
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
@@ -78,10 +70,10 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npm exec smart-test comment --base "origin/${{ github.base_ref || 'main' }}" || npm exec smart-test analyze --base "origin/${{ github.base_ref || 'main' }}"
+          npm exec playwright-smart-test comment --base "origin/${{ github.base_ref || 'main' }}" || npm exec playwright-smart-test analyze --base "origin/${{ github.base_ref || 'main' }}"
 
       - name: Execute Targeted Playwright Tests
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          npm exec smart-test run --base "origin/${{ github.base_ref || 'main' }}"
+          npm exec playwright-smart-test run --base "origin/${{ github.base_ref || 'main' }}"

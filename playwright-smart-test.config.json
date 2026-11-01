@@ -1,0 +1,46 @@
+{
+  "testDir": "playwright/e2e/tests",
+  "testMatch": ["**/*.spec.ts"],
+  "pageObjectsDir": "playwright/e2e/pages",
+  "components": [
+    {
+      "name": "checkout",
+      "patterns": ["src/**/Checkout*", "playwright/e2e/**/checkout*"],
+      "description": "Checkout flow, promo codes, and order calculation"
+    },
+    {
+      "name": "payment",
+      "patterns": ["src/**/Payment*", "playwright/e2e/**/payment*"],
+      "description": "Payment gateways, tokenization, and invoices"
+    },
+    {
+      "name": "basket",
+      "patterns": ["src/**/Cart*", "playwright/e2e/**/cart*", "src/**/basket*"],
+      "description": "Shopping cart items, inventory checks, and quantities"
+    },
+    {
+      "name": "profile",
+      "patterns": ["src/**/Profile*", "playwright/e2e/**/profile*"],
+      "description": "User profile and account settings"
+    }
+  ],
+  "safetyRules": {
+    "maxChangedDomainsForFullRun": 8,
+    "maxImpactRatioForFullRun": 0.7,
+    "smokeTag": "@smoke",
+    "smokeSpecPattern": "**/*smoke*.spec.ts",
+    "docsOnlyPatterns": [
+      "**/*.md",
+      "docs/**",
+      "LICENSE",
+      "**/.gitignore",
+      "**/assets/**"
+    ],
+    "fullRunPatterns": []
+  },
+  "ai": {
+    "provider": "gemini",
+    "model": "gemini-3.8-flash",
+    "temperature": 0.2
+  }
+}

@@ -1,6 +1,6 @@
 # 🛒 E-Commerce React Storefront & Playwright Demo
 
-> Production-grade React 18 + TypeScript storefront with **Vitest unit tests**, **Playwright Page Object Model (POM) E2E suite**, and automated **[Smart Regression Agent](https://github.com/Ujjwal-S-S/smart-regression-agent)** for AI-powered regression test selection in GitHub Actions CI.
+> Production-grade React 18 + TypeScript storefront with **Vitest unit tests**, **Playwright Page Object Model (POM) E2E suite**, and automated **[playwright-smart-test](https://github.com/Ujjwal-S-S/playwright-smart-test)** for AI-powered regression test selection in GitHub Actions CI.
 
 ---
 
@@ -9,7 +9,7 @@
 - **Frontend**: React 18, TypeScript (Strict Mode), Vite 6
 - **Unit Testing**: Vitest 5, `@testing-library/react`, `@testing-library/jest-dom`
 - **End-to-End Testing**: Playwright Test with Page Object Models (`playwright/e2e/pages/`)
-- **AI Regression Agent**: Smart Regression Agent CLI (`smart-test`) with Gemini 3.5 Flash Lite
+- **AI Regression Agent**: [playwright-smart-test](https://www.npmjs.com/package/playwright-smart-test) CLI with Gemini
 - **Continuous Integration**: GitHub Actions multi-stage CI pipeline (UT & Build &rarr; AI Impact &rarr; E2E Run)
 
 ---
@@ -51,7 +51,7 @@ ecommerce-playwright-demo/
 │           ├── payment.spec.ts
 │           └── profile.spec.ts
 ├── playwright.config.ts             # Playwright Config with Vite WebServer
-├── smart-regression.config.json     # Component Mappings & Gemini 3.5 Flash Lite
+├── playwright-smart-test.config.json # Component Mappings & Safety Guardrails
 ├── vite.config.ts                   # Vite bundler configuration
 ├── vitest.config.ts                 # Vitest configuration (jsdom environment)
 └── tsconfig.json                    # TypeScript strict compiler config
@@ -97,9 +97,12 @@ npm run test:e2e:ui
 
 ### 6. Run AI Smart Regression Selection
 ```bash
-# Analyze PR diff using Gemini 3.5 Flash Lite
+# Analyze PR diff and select impacted tests
+npm run test:smart:analyze
+
+# Execute only AI-selected impacted tests directly with Playwright
 npm run test:smart
 
-# Execute only AI-selected impacted tests
-npm run test:smart:run
+# Post impact summary comment to PR (in CI)
+npm run test:smart:comment
 ```

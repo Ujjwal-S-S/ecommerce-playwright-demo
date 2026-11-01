@@ -12,8 +12,9 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
-    "test:smart": "smart-test analyze",
-    "test:smart:run": "smart-test run",
+    "test:smart": "playwright-smart-test run",
+    "test:smart:analyze": "playwright-smart-test analyze",
+    "test:smart:comment": "playwright-smart-test comment",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -30,7 +31,7 @@
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
     "jsdom": "^25.0.1",
-    "@ujjwal-s-s/smart-regression-agent": "^1.0.0",
+    "playwright-smart-test": "^1.0.4",
     "typescript": "^5.7.2",
     "vite": "^6.0.7",
     "vitest": "^5.0.5"
