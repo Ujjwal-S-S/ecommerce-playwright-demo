@@ -39,4 +39,14 @@ describe('Cart Component (Unit Tests)', () => {
     fireEvent.click(screen.getByTestId('proceed-checkout-btn'));
     expect(handleProceed).toHaveBeenCalledTimes(1);
   });
+
+  it('displays free shipping banner when subtotal is $100 or greater', () => {
+    const qualifyingItems: CartItem[] = [
+      { id: '1', name: 'Product A', price: 60, quantity: 2 }, // $120
+    ];
+    render(<Cart items={qualifyingItems} />);
+
+    expect(screen.getByTestId('free-shipping-banner')).toBeInTheDocument();
+    expect(screen.getByTestId('free-shipping-banner')).toHaveTextContent('Free Standard Shipping');
+  });
 });
