@@ -65,15 +65,9 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Run AI Smart Regression Analysis & PR Comment
+      - name: Run AI Smart Regression Selection & Targeted E2E Tests
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npm exec playwright-smart-test comment --base "origin/${{ github.base_ref || 'main' }}" || npm exec playwright-smart-test analyze --base "origin/${{ github.base_ref || 'main' }}"
-
-      - name: Execute Targeted Playwright Tests
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          npm exec playwright-smart-test run --base "origin/${{ github.base_ref || 'main' }}"
+          npm exec playwright-smart-test run --comment --base "origin/${{ github.base_ref || 'main' }}"
