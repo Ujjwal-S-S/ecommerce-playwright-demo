@@ -1,0 +1,13 @@
+# Global owner for all files across the repository
+* @Ujjwal-S-S
+
+# CI/CD Pipelines and Workflows
+/.github/ @Ujjwal-S-S
+
+# End-to-End Tests & Smart Test Configuration
+/playwright/ @Ujjwal-S-S
+/playwright-smart-test.config.json @Ujjwal-S-S
+/playwright.config.ts @Ujjwal-S-S
+
+# Source Code & Components
+/src/ @Ujjwal-S-S

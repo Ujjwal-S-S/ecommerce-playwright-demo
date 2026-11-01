@@ -2,7 +2,7 @@
   "name": "ecommerce-playwright-demo",
   "version": "1.0.0",
   "type": "module",
-  "description": "Production-grade React + TypeScript E-Commerce Application with Vitest Unit Tests & AI-selected Playwright E2E Regression Suite",
+  "description": "React + TypeScript e-commerce demo application with Vitest unit tests and AI-powered Playwright regression test selection",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -31,7 +31,7 @@
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
     "jsdom": "^25.0.1",
-    "playwright-smart-test": "^1.0.4",
+    "playwright-smart-test": "^1.0.5",
     "typescript": "^5.7.2",
     "vite": "^6.0.7",
     "vitest": "^5.0.5"
